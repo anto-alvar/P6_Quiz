@@ -52,7 +52,7 @@ router.get('/author', (req, res, next) => {
 });
 
 
-// Autoload for routes using :quizId
+// Autoload for routes using :quizId, :userId and :tipId
 router.param('quizId', quizController.load);
 router.param('userId', userController.load);
 router.param('tipId',  tipController.load);
@@ -119,6 +119,20 @@ router.delete('/quizzes/:quizId(\\d+)',
 
 router.get('/quizzes/:quizId(\\d+)/play',  quizController.play);
 router.get('/quizzes/:quizId(\\d+)/check', quizController.check);
+
+
+
+//randomplay and randomcheck practica6
+router.get('/quizzes/randomplay',  quizController.randomplay);
+router.get('/quizzes/randomcheck/:quizId(\\d+)',  quizController.randomcheck);
+
+//render edit view and add tip changes to database practica8
+router.get('/quizzes/:quizId(\\d+)/tips/:tipId(\\d+)/edit',sessionController.loginRequired,
+    tipController.adminOrAuthorRequired,tipController.edit);
+router.put('/quizzes/:quizId(\\d+)/tips/:tipId(\\d+)',sessionController.loginRequired,
+	tipController.adminOrAuthorRequired,tipController.update);
+
+
 
 
 
